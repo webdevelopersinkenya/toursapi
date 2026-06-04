@@ -1,0 +1,177 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Tours Management API",
+    "version": "1.0.0",
+    "description": "API documentation for Tours and Bookings management system"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000"
+    }
+  ],
+  "paths": {
+
+    "/api/tours": {
+      "get": {
+        "summary": "Get all tours",
+        "responses": {
+          "200": { "description": "Success" }
+        }
+      },
+      "post": {
+        "summary": "Create a new tour",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "destination": { "type": "string" },
+                  "price": { "type": "number" }
+                },
+                "required": ["name", "destination", "price"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Tour created" },
+          "400": { "description": "Bad request" }
+        }
+      }
+    },
+
+    "/api/tours/{id}": {
+      "put": {
+        "summary": "Update a tour",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "destination": { "type": "string" },
+                  "price": { "type": "number" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Tour updated" },
+          "404": { "description": "Tour not found" }
+        }
+      },
+
+      "delete": {
+        "summary": "Delete a tour",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Tour deleted" },
+          "404": { "description": "Tour not found" }
+        }
+      }
+    },
+
+    "/api/bookings": {
+      "get": {
+        "summary": "Get all bookings",
+        "responses": {
+          "200": { "description": "Success" }
+        }
+      },
+      "post": {
+        "summary": "Create a booking",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "customerName": { "type": "string" },
+                  "email": { "type": "string" },
+                  "tourId": { "type": "string" }
+                },
+                "required": ["customerName", "email", "tourId"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Booking created" },
+          "400": { "description": "Bad request" }
+        }
+      }
+    },
+
+    "/api/bookings/{id}": {
+      "put": {
+        "summary": "Update a booking",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "customerName": { "type": "string" },
+                  "email": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Booking updated" },
+          "404": { "description": "Booking not found" }
+        }
+      },
+
+      "delete": {
+        "summary": "Delete a booking",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Booking deleted" },
+          "404": { "description": "Booking not found" }
+        }
+      }
+    }
+
+  }
+}

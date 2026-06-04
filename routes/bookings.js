@@ -36,14 +36,23 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   try {
-    await Booking.findByIdAndDelete(req.params.id);
+    const booking = await Booking.findByIdAndDelete(req.params.id);
+
+    if (!booking) {
+      return res.status(404).json({
+        message: "Booking not found"
+      });
+    }
 
     res.status(200).json({
-      message: "Booking deleted"
+      message: "Booking deleted successfully",
+      deletedBooking: booking
     });
+
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      message: error.message
+    });
   }
 });
-
 module.exports = router;

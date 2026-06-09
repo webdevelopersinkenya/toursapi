@@ -1,6 +1,5 @@
 const { ObjectId } = require("mongodb");
-const Tour = require("../models/tourModel");
-
+const db = require("../config/db");
 
 // GET ALL TOURS
 exports.getAllTours = async (req, res) => {
@@ -67,7 +66,6 @@ exports.createTour = async (req, res) => {
 exports.updateTour = async (req, res) => {
   try {
     const id = new ObjectId(req.params.id);
-
     const { title, description, price, duration, destinationId } = req.body;
 
     // VALIDATION
@@ -105,6 +103,7 @@ exports.updateTour = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 // DELETE TOUR
 exports.deleteTour = async (req, res) => {
   try {

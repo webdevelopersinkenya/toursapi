@@ -5,16 +5,18 @@ const { generateToken } = require("../utils/jwt");
 // LOGIN USER
 exports.loginUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
 
-    // 1. VALIDATION
+    // VALIDATION
     if (!email || !password) {
       return res.status(400).json({
         message: "Email and password are required"
       });
     }
 
-    // 2. FIND USER
+    email = email.toLowerCase().trim();
+
+    // FIND USER
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -23,7 +25,7 @@ exports.loginUser = async (req, res) => {
       });
     }
 
-    // 3. CHECK PASSWORD
+    // CHECK PASSWORD
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
@@ -32,14 +34,13 @@ exports.loginUser = async (req, res) => {
       });
     }
 
-    // 4. GENERATE TOKEN
+    // GENERATE TOKEN
     const token = generateToken({
       id: user._id,
-      email: user.email,
-      role: user.role
+      role: user.role || "user"
     });
 
-    // 5. RESPONSE
+    // RESPONSE
     res.status(200).json({
       message: "Login successful",
       token,

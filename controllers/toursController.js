@@ -1,4 +1,5 @@
 const Tour = require("../models/tourModel");
+console.log("TOUR MODEL FIELDS:", Object.keys(Tour.schema.obj));
 
 // GET ALL TOURS
 exports.getAllTours = async (req, res) => {

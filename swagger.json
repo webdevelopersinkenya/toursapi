@@ -32,6 +32,7 @@
     { "name": "Tours", "description": "Tours management" }
   ],
   "paths": {
+
     "/auth/register": {
       "post": {
         "tags": ["Auth"],
@@ -89,7 +90,9 @@
       "get": {
         "tags": ["Users"],
         "summary": "Get all users",
-        "responses": { "200": { "description": "Success" } }
+        "responses": {
+          "200": { "description": "Success" }
+        }
       },
       "post": {
         "tags": ["Users"],
@@ -110,7 +113,9 @@
             }
           }
         },
-        "responses": { "201": { "description": "Created" } }
+        "responses": {
+          "201": { "description": "Created" }
+        }
       }
     },
 
@@ -126,7 +131,9 @@
       "get": {
         "tags": ["Users"],
         "summary": "Get user by ID",
-        "responses": { "200": { "description": "Success" } }
+        "responses": {
+          "200": { "description": "Success" }
+        }
       },
       "put": {
         "tags": ["Users"],
@@ -146,23 +153,31 @@
             }
           }
         },
-        "responses": { "200": { "description": "Updated" } }
+        "responses": {
+          "200": { "description": "Updated" }
+        }
       },
       "delete": {
         "tags": ["Users"],
         "summary": "Delete user",
-        "responses": { "200": { "description": "Deleted" } }
+        "responses": {
+          "200": { "description": "Deleted" }
+        }
       }
     },
 
     "/api/bookings": {
       "get": {
         "tags": ["Bookings"],
-        "responses": { "200": { "description": "Success" } }
+        "summary": "Get all bookings",
+        "responses": {
+          "200": { "description": "Success" }
+        }
       },
       "post": {
         "tags": ["Bookings"],
         "security": [{ "BearerAuth": [] }],
+        "summary": "Create booking",
         "requestBody": {
           "required": true,
           "content": {
@@ -179,7 +194,9 @@
             }
           }
         },
-        "responses": { "201": { "description": "Created" } }
+        "responses": {
+          "201": { "description": "Created" }
+        }
       }
     },
 
@@ -192,27 +209,57 @@
           "schema": { "type": "string" }
         }
       ],
+      "get": {
+        "tags": ["Bookings"],
+        "summary": "Get booking by ID",
+        "responses": {
+          "200": { "description": "Success" }
+        }
+      },
       "put": {
         "tags": ["Bookings"],
         "summary": "Update booking",
         "security": [{ "BearerAuth": [] }],
-        "responses": { "200": { "description": "Updated" } }
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "customerName": { "type": "string" },
+                  "email": { "type": "string" },
+                  "tourId": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Updated" }
+        }
       },
       "delete": {
         "tags": ["Bookings"],
         "summary": "Delete booking",
         "security": [{ "BearerAuth": [] }],
-        "responses": { "200": { "description": "Deleted" } }
+        "responses": {
+          "200": { "description": "Deleted" }
+        }
       }
     },
 
     "/api/destinations": {
       "get": {
         "tags": ["Destinations"],
-        "responses": { "200": { "description": "Success" } }
+        "summary": "Get all destinations",
+        "responses": {
+          "200": { "description": "Success" }
+        }
       },
       "post": {
         "tags": ["Destinations"],
+        "summary": "Create destination",
         "requestBody": {
           "required": true,
           "content": {
@@ -229,7 +276,9 @@
             }
           }
         },
-        "responses": { "201": { "description": "Created" } }
+        "responses": {
+          "201": { "description": "Created" }
+        }
       }
     },
 
@@ -245,17 +294,38 @@
       "get": {
         "tags": ["Destinations"],
         "summary": "Get destination by ID",
-        "responses": { "200": { "description": "Success" } }
+        "responses": {
+          "200": { "description": "Success" }
+        }
       },
       "put": {
         "tags": ["Destinations"],
         "summary": "Update destination",
-        "responses": { "200": { "description": "Updated" } }
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "country": { "type": "string" },
+                  "description": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Updated" }
+        }
       },
       "delete": {
         "tags": ["Destinations"],
         "summary": "Delete destination",
-        "responses": { "200": { "description": "Deleted" } }
+        "responses": {
+          "200": { "description": "Deleted" }
+        }
       }
     },
 
@@ -263,11 +333,13 @@
       "get": {
         "tags": ["Tours"],
         "summary": "Get all tours",
-        "responses": { "200": { "description": "Success" } }
+        "responses": {
+          "200": { "description": "Success" }
+        }
       },
       "post": {
         "tags": ["Tours"],
-        "summary": "Create a new tour",
+        "summary": "Create tour",
         "requestBody": {
           "required": true,
           "content": {
@@ -287,8 +359,7 @@
           }
         },
         "responses": {
-          "201": { "description": "Created successfully" },
-          "400": { "description": "Validation error" }
+          "201": { "description": "Created" }
         }
       }
     },
@@ -306,25 +377,38 @@
         "tags": ["Tours"],
         "summary": "Get tour by ID",
         "responses": {
-          "200": { "description": "Success" },
-          "404": { "description": "Tour not found" }
+          "200": { "description": "Success" }
         }
       },
       "put": {
         "tags": ["Tours"],
         "summary": "Update tour",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": { "type": "string" },
+                  "description": { "type": "string" },
+                  "price": { "type": "number" },
+                  "duration": { "type": "number" },
+                  "destinationId": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
         "responses": {
-          "200": { "description": "Updated successfully" },
-          "400": { "description": "Validation error" },
-          "404": { "description": "Tour not found" }
+          "200": { "description": "Updated" }
         }
       },
       "delete": {
         "tags": ["Tours"],
         "summary": "Delete tour",
         "responses": {
-          "200": { "description": "Deleted successfully" },
-          "404": { "description": "Tour not found" }
+          "200": { "description": "Deleted" }
         }
       }
     }
